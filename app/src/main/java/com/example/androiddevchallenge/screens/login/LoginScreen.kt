@@ -53,6 +53,7 @@ import androidx.navigation.compose.popUpTo
 import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.screens.home.HOME_SCREEN
 import com.example.androiddevchallenge.screens.welcome.WELCOME_SCREEN
+import com.example.androiddevchallenge.ui.theme.BloomRoundedButtonTheme
 
 const val LOGIN_SCREEN = "login_screen"
 
@@ -114,13 +115,15 @@ fun LoginScreen(
                 textAlign = TextAlign.Center
             )
 
-            LoginButton(
-                onClick = {
-                    navController.navigate(HOME_SCREEN) {
-                        popUpTo(WELCOME_SCREEN) { inclusive = true }
+            BloomRoundedButtonTheme {
+                LoginButton(
+                    onClick = {
+                        navController.navigate(HOME_SCREEN) {
+                            popUpTo(WELCOME_SCREEN) { inclusive = true }
+                        }
                     }
-                }
-            )
+                )
+            }
         }
     }
 }

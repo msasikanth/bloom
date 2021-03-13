@@ -25,6 +25,6 @@ val shapes = Shapes(
     large = RoundedCornerShape(0.dp)
 )
 
-val createAccountButtonShape = Shapes(
+val roundedButtonCornerShapes = Shapes(
     small = RoundedCornerShape(percent = 50)
 )

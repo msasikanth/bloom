@@ -79,7 +79,29 @@ fun BloomSecondaryPrimaryTheme(darkTheme: Boolean = isSystemInDarkTheme(), conte
     MaterialTheme(
         colors = colors,
         typography = typography,
-        shapes = createAccountButtonShape,
+        shapes = shapes,
+        content = content,
+    )
+}
+
+@Composable
+fun BloomRoundedButtonTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
+    val colors = if (darkTheme) {
+        DarkColorPalette.copy(
+            primary = green300,
+            onPrimary = gray
+        )
+    } else {
+        LightColorPalette.copy(
+            primary = pink900,
+            onPrimary = white
+        )
+    }
+
+    MaterialTheme(
+        colors = colors,
+        typography = typography,
+        shapes = roundedButtonCornerShapes,
         content = content,
     )
 }

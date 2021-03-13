@@ -39,7 +39,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigate
 import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.screens.login.LOGIN_SCREEN
-import com.example.androiddevchallenge.ui.theme.BloomSecondaryPrimaryTheme
+import com.example.androiddevchallenge.ui.theme.BloomRoundedButtonTheme
 import com.example.androiddevchallenge.ui.theme.pink900
 import com.example.androiddevchallenge.ui.theme.white
 
@@ -74,26 +74,26 @@ fun WelcomeScreen(
                 textAlign = TextAlign.Center
             )
 
-            Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp)) {
-                BloomSecondaryPrimaryTheme {
+            BloomRoundedButtonTheme {
+                Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp)) {
                     Button(
                         onClick = { /*TODO*/ },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(height = 48.dp)
-                            .padding(bottom = 8.dp),
+                            .padding(bottom = 8.dp)
+                            .height(height = 48.dp),
                     ) {
                         Text(text = stringResource(id = R.string.create_account))
                     }
-                }
 
-                TextButton(onClick = { navController.navigate(LOGIN_SCREEN) }, modifier = Modifier.fillMaxWidth()) {
-                    val contentColor = if (MaterialTheme.colors.isLight) {
-                        pink900
-                    } else {
-                        white
+                    TextButton(onClick = { navController.navigate(LOGIN_SCREEN) }, modifier = Modifier.fillMaxWidth()) {
+                        val contentColor = if (MaterialTheme.colors.isLight) {
+                            pink900
+                        } else {
+                            white
+                        }
+                        Text(text = stringResource(id = R.string.login), color = contentColor)
                     }
-                    Text(text = stringResource(id = R.string.login), color = contentColor)
                 }
             }
         }
