@@ -28,6 +28,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -40,61 +41,68 @@ import dev.chrisbanes.accompanist.insets.toPaddingValues
 const val HOME_SCREEN = "home_screen"
 
 @Composable
-fun HomeScreen() {
-    val paddingBottom = LocalWindowInsets.current.navigationBars.toPaddingValues().calculateBottomPadding()
-    Scaffold(
-        backgroundColor = MaterialTheme.colors.background,
-        modifier = Modifier
-            .padding(
-                top = 40.dp,
-                bottom = paddingBottom
-            )
-            .fillMaxHeight(),
-        bottomBar = { HomeScreenBottomNav() },
-    ) {
-        var searchQuery by mutableStateOf("")
+fun HomeScreen(
+  viewModel: HomeViewModel
+) {
+  val paddingBottom = LocalWindowInsets.current.navigationBars.toPaddingValues().calculateBottomPadding()
+  val plants by viewModel.plants.observeAsState(emptyList())
 
-        LazyColumn(modifier = Modifier.padding(bottom = 56.dp)) {
-            item {
-                HomeSearchFiled(
-                    modifier = Modifier.padding(horizontal = 16.dp),
-                    searchQuery = searchQuery,
-                    onSearchQueryChange = { searchQuery = it }
-                )
-            }
+  Scaffold(
+    backgroundColor = MaterialTheme.colors.background,
+    modifier = Modifier
+      .padding(
+        top = 40.dp,
+        bottom = paddingBottom
+      )
+      .fillMaxHeight(),
+    bottomBar = { HomeScreenBottomNav() },
+  ) {
+    var searchQuery by mutableStateOf("")
 
-            item {
-                Text(
-                    stringResource(id = R.string.browse_themes),
-                    modifier = Modifier
-                        .paddingFromBaseline(top = 32.dp)
-                        .padding(horizontal = 16.dp),
-                    style = MaterialTheme.typography.h1,
-                    color = MaterialTheme.colors.onBackground
-                )
-            }
+    LazyColumn(modifier = Modifier.padding(bottom = 56.dp)) {
+      item {
+        HomeSearchFiled(
+          modifier = Modifier.padding(horizontal = 16.dp),
+          searchQuery = searchQuery,
+          onSearchQueryChange = { searchQuery = it }
+        )
+      }
 
-            item {
-                ThemesHorizontalList()
-            }
+      item {
+        Text(
+          stringResource(id = R.string.browse_themes),
+          modifier = Modifier
+            .paddingFromBaseline(top = 32.dp)
+            .padding(horizontal = 16.dp),
+          style = MaterialTheme.typography.h1,
+          color = MaterialTheme.colors.onBackground
+        )
+      }
 
-            item {
-                HomeGardenHeader(modifier = Modifier.padding(horizontal = 16.dp))
-            }
+      item {
+        ThemesHorizontalList()
+      }
 
-            item {
-                Spacer(modifier = Modifier.height(16.dp))
-            }
+      item {
+        HomeGardenHeader(modifier = Modifier.padding(horizontal = 16.dp))
+      }
 
-            items(plants) { plant ->
-                PlantListItem(
-                    plant = plant,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp)
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-            }
-        }
+      item {
+        Spacer(modifier = Modifier.height(16.dp))
+      }
+
+      items(plants) { plant ->
+        PlantListItem(
+          plant = plant,
+          onPlanSelectionChange = { isChecked ->
+            viewModel.plantSelectionChanged(plant.id, isChecked)
+          },
+          modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp)
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+      }
     }
+  }
 }

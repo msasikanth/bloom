@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -63,7 +64,7 @@ fun MyApp() {
                 LoginScreen(navController = navController)
             }
         }
-        composable(HOME_SCREEN) { HomeScreen() }
+        composable(HOME_SCREEN) { HomeScreen(viewModel = viewModel()) }
     }
 }
 

@@ -61,6 +61,10 @@ android {
         excludes += "/META-INF/AL2.0"
         excludes += "/META-INF/LGPL2.1"
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -72,8 +76,10 @@ dependencies {
     implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
     implementation "androidx.compose.ui:ui-tooling:$compose_version"
+    implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-alpha04"
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha03'
 
     implementation "dev.chrisbanes.accompanist:accompanist-insets:0.6.2"
     implementation "dev.chrisbanes.accompanist:accompanist-coil:0.6.2"
