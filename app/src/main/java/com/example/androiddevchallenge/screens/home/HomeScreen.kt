@@ -42,67 +42,67 @@ const val HOME_SCREEN = "home_screen"
 
 @Composable
 fun HomeScreen(
-  viewModel: HomeViewModel
+    viewModel: HomeViewModel
 ) {
-  val paddingBottom = LocalWindowInsets.current.navigationBars.toPaddingValues().calculateBottomPadding()
-  val plants by viewModel.plants.observeAsState(emptyList())
+    val paddingBottom = LocalWindowInsets.current.navigationBars.toPaddingValues().calculateBottomPadding()
+    val plants by viewModel.plants.observeAsState(emptyList())
 
-  Scaffold(
-    backgroundColor = MaterialTheme.colors.background,
-    modifier = Modifier
-      .padding(
-        top = 40.dp,
-        bottom = paddingBottom
-      )
-      .fillMaxHeight(),
-    bottomBar = { HomeScreenBottomNav() },
-  ) {
-    var searchQuery by mutableStateOf("")
+    Scaffold(
+        backgroundColor = MaterialTheme.colors.background,
+        modifier = Modifier
+            .padding(
+                top = 40.dp,
+                bottom = paddingBottom
+            )
+            .fillMaxHeight(),
+        bottomBar = { HomeScreenBottomNav() },
+    ) {
+        var searchQuery by mutableStateOf("")
 
-    LazyColumn(modifier = Modifier.padding(bottom = 56.dp)) {
-      item {
-        HomeSearchFiled(
-          modifier = Modifier.padding(horizontal = 16.dp),
-          searchQuery = searchQuery,
-          onSearchQueryChange = { searchQuery = it }
-        )
-      }
+        LazyColumn(modifier = Modifier.padding(bottom = 56.dp)) {
+            item {
+                HomeSearchFiled(
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    searchQuery = searchQuery,
+                    onSearchQueryChange = { searchQuery = it }
+                )
+            }
 
-      item {
-        Text(
-          stringResource(id = R.string.browse_themes),
-          modifier = Modifier
-            .paddingFromBaseline(top = 32.dp)
-            .padding(horizontal = 16.dp),
-          style = MaterialTheme.typography.h1,
-          color = MaterialTheme.colors.onBackground
-        )
-      }
+            item {
+                Text(
+                    stringResource(id = R.string.browse_themes),
+                    modifier = Modifier
+                        .paddingFromBaseline(top = 32.dp)
+                        .padding(horizontal = 16.dp),
+                    style = MaterialTheme.typography.h1,
+                    color = MaterialTheme.colors.onBackground
+                )
+            }
 
-      item {
-        ThemesHorizontalList()
-      }
+            item {
+                ThemesHorizontalList()
+            }
 
-      item {
-        HomeGardenHeader(modifier = Modifier.padding(horizontal = 16.dp))
-      }
+            item {
+                HomeGardenHeader(modifier = Modifier.padding(horizontal = 16.dp))
+            }
 
-      item {
-        Spacer(modifier = Modifier.height(16.dp))
-      }
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
+            }
 
-      items(plants) { plant ->
-        PlantListItem(
-          plant = plant,
-          onPlanSelectionChange = { isChecked ->
-            viewModel.plantSelectionChanged(plant.id, isChecked)
-          },
-          modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp)
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-      }
+            items(plants) { plant ->
+                PlantListItem(
+                    plant = plant,
+                    onPlanSelectionChange = { isChecked ->
+                        viewModel.plantSelectionChanged(plant.id, isChecked)
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp)
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+        }
     }
-  }
 }

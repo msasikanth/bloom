@@ -39,95 +39,95 @@ fun PlantListItem(
     plant: Plant,
     onPlanSelectionChange: (Boolean) -> Unit
 ) {
-  ConstraintLayout(
-    constraintSet = constraints(),
-    modifier = modifier.height(64.dp)
-  ) {
-    CoilImage(
-      data = plant.image,
-      contentDescription = "Plant: ${plant.name}",
-      contentScale = ContentScale.Crop,
-      fadeIn = true,
-      modifier = Modifier
-          .layoutId("image")
-          .size(64.dp)
-          .clip(MaterialTheme.shapes.small)
-    )
+    ConstraintLayout(
+        constraintSet = constraints(),
+        modifier = modifier.height(64.dp)
+    ) {
+        CoilImage(
+            data = plant.image,
+            contentDescription = "Plant: ${plant.name}",
+            contentScale = ContentScale.Crop,
+            fadeIn = true,
+            modifier = Modifier
+                .layoutId("image")
+                .size(64.dp)
+                .clip(MaterialTheme.shapes.small)
+        )
 
-    BloomCheckBox(
-      checked = plant.isSelected,
-      onCheckedChange = onPlanSelectionChange,
-      modifier = Modifier.layoutId("checkbox")
-    )
+        BloomCheckBox(
+            checked = plant.isSelected,
+            onCheckedChange = onPlanSelectionChange,
+            modifier = Modifier.layoutId("checkbox")
+        )
 
-    Divider(
-      modifier = Modifier.layoutId("divider"),
-      startIndent = 0.dp
-    )
+        Divider(
+            modifier = Modifier.layoutId("divider"),
+            startIndent = 0.dp
+        )
 
-    Text(
-      plant.name,
-      style = MaterialTheme.typography.h2,
-      color = MaterialTheme.colors.onBackground,
-      modifier = Modifier
-          .layoutId("title")
-          .paddingFromBaseline(top = 24.dp),
-    )
+        Text(
+            plant.name,
+            style = MaterialTheme.typography.h2,
+            color = MaterialTheme.colors.onBackground,
+            modifier = Modifier
+                .layoutId("title")
+                .paddingFromBaseline(top = 24.dp),
+        )
 
-    Text(
-      plant.description,
-      style = MaterialTheme.typography.body1,
-      color = MaterialTheme.colors.onBackground,
-      modifier = Modifier
-          .layoutId("description")
-          .paddingFromBaseline(bottom = 24.dp)
-    )
-  }
+        Text(
+            plant.description,
+            style = MaterialTheme.typography.body1,
+            color = MaterialTheme.colors.onBackground,
+            modifier = Modifier
+                .layoutId("description")
+                .paddingFromBaseline(bottom = 24.dp)
+        )
+    }
 }
 
 private fun constraints(): ConstraintSet {
-  return ConstraintSet {
-    val image = createRefFor("image")
-    val title = createRefFor("title")
-    val description = createRefFor("description")
-    val checkbox = createRefFor("checkbox")
-    val divider = createRefFor("divider")
+    return ConstraintSet {
+        val image = createRefFor("image")
+        val title = createRefFor("title")
+        val description = createRefFor("description")
+        val checkbox = createRefFor("checkbox")
+        val divider = createRefFor("divider")
 
-    constrain(image) {
-      start.linkTo(parent.start)
-      top.linkTo(parent.top)
-      bottom.linkTo(parent.bottom)
+        constrain(image) {
+            start.linkTo(parent.start)
+            top.linkTo(parent.top)
+            bottom.linkTo(parent.bottom)
+        }
+
+        constrain(checkbox) {
+            end.linkTo(parent.end)
+            top.linkTo(parent.top)
+            bottom.linkTo(parent.bottom)
+        }
+
+        constrain(divider) {
+            linkTo(start = image.end, end = parent.end, startMargin = 8.dp)
+            bottom.linkTo(parent.bottom)
+
+            width = Dimension.fillToConstraints
+        }
+
+        constrain(title) {
+            linkTo(start = divider.start, end = checkbox.start, startMargin = 16.dp)
+
+            top.linkTo(parent.top)
+            bottom.linkTo(description.top)
+
+            width = Dimension.fillToConstraints
+        }
+
+        constrain(description) {
+            linkTo(start = title.start, end = checkbox.start)
+
+            top.linkTo(title.bottom)
+            bottom.linkTo(divider.top)
+
+            width = Dimension.fillToConstraints
+        }
     }
-
-    constrain(checkbox) {
-      end.linkTo(parent.end)
-      top.linkTo(parent.top)
-      bottom.linkTo(parent.bottom)
-    }
-
-    constrain(divider) {
-      linkTo(start = image.end, end = parent.end, startMargin = 8.dp)
-      bottom.linkTo(parent.bottom)
-
-      width = Dimension.fillToConstraints
-    }
-
-    constrain(title) {
-      linkTo(start = divider.start, end = checkbox.start, startMargin = 16.dp)
-
-      top.linkTo(parent.top)
-      bottom.linkTo(description.top)
-
-      width = Dimension.fillToConstraints
-    }
-
-    constrain(description) {
-      linkTo(start = title.start, end = checkbox.start)
-
-      top.linkTo(title.bottom)
-      bottom.linkTo(divider.top)
-
-      width = Dimension.fillToConstraints
-    }
-  }
 }
