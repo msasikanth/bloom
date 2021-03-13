@@ -1,0 +1,30 @@
+<resources>
+    <!--
+      Copyright 2020 The Android Open Source Project
+      Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+      in compliance with the License. You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+      Unless required by applicable law or agreed to in writing, software distributed under the License
+      is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+      or implied. See the License for the specific language governing permissions and limitations under
+      the License.
+      -->
+    <string name="app_name">AndroidDevChallenge</string>
+  <string name="bloom_login_subtitle">Beautiful home garden solutions</string>
+  <string name="create_account">Create account</string>
+  <string name="login">Log in</string>
+  <string name="login_with_email">Log in with email</string>
+  <string name="login_email_address">Email address</string>
+  <string name="login_password">Password (8+ characters)</string>
+  <string name="login_terms_1">By clicking below, you agree to our </string>
+  <string name="login_terms_2">Terms of Use</string>
+  <string name="login_terms_3"> and consent to our </string>
+  <string name="login_terms_4">Privacy Policy</string>
+  <string name="login_terms_5">.</string>
+  <string name="home">Home</string>
+  <string name="favorites">Favorites</string>
+  <string name="profile">Profile</string>
+  <string name="cart">Cart</string>
+  <string name="browse_themes">Browse themes</string>
+  <string name="home_garden_header">Design your home garden</string>
+</resources>
