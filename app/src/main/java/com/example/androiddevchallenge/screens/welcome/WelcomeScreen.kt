@@ -56,6 +56,7 @@ fun WelcomeScreen(
         ) {
             Image(
                 modifier = Modifier
+                    .fillMaxWidth()
                     .padding(start = 88.dp, bottom = 48.dp),
                 painter = painterResource(id = R.drawable.ic_welcome_illos),
                 contentDescription = "Bloom Logo Icon",
