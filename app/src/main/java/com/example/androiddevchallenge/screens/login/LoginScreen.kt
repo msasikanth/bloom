@@ -27,14 +27,16 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Surface
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -54,6 +56,7 @@ import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.screens.home.HOME_SCREEN
 import com.example.androiddevchallenge.screens.welcome.WELCOME_SCREEN
 import com.example.androiddevchallenge.ui.theme.BloomRoundedButtonTheme
+import kotlinx.coroutines.launch
 
 const val LOGIN_SCREEN = "login_screen"
 
@@ -65,8 +68,12 @@ fun LoginScreen(
     var password by mutableStateOf("")
     var passwordVisible by mutableStateOf(false)
 
-    Surface(
-        color = MaterialTheme.colors.background,
+    val scaffoldState = rememberScaffoldState()
+    val scope = rememberCoroutineScope()
+
+    Scaffold(
+        scaffoldState = scaffoldState,
+        backgroundColor = MaterialTheme.colors.background,
         modifier = Modifier.fillMaxHeight()
     ) {
         Column(
@@ -118,8 +125,14 @@ fun LoginScreen(
             BloomRoundedButtonTheme {
                 LoginButton(
                     onClick = {
-                        navController.navigate(HOME_SCREEN) {
-                            popUpTo(WELCOME_SCREEN) { inclusive = true }
+                        if (password.length > 8) {
+                            navigateToHome(navController = navController)
+                        } else {
+                            scope.launch {
+                                scaffoldState.snackbarHostState.showSnackbar(
+                                    message = "Password should be more than 8 characters"
+                                )
+                            }
                         }
                     }
                 )
@@ -182,4 +195,10 @@ fun LoginPasswordTextField(
             }
         }
     )
+}
+
+private fun navigateToHome(navController: NavHostController) {
+    navController.navigate(HOME_SCREEN) {
+        popUpTo(WELCOME_SCREEN) { inclusive = true }
+    }
 }
